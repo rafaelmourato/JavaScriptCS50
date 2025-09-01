@@ -2,16 +2,39 @@
 <html lang="en">
     <head>
         <title>
-            <h1>To Do List</h1>
+            <title>To Do List</title>
         </title>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelector('#submit').disabled = true;
+                document.querySelector('#task').onkeyup = () => {
+                    if(document.querySelector('#task').value.length > 0 ){
+                        document.querySelector('#submit').disabled = false;
+                    } else{
+                        document.querySelector('#submit').disabled = true;
+                    }
+                    
+                }
+
+                document.querySelector('form').onsubmit = () => {
+                    const task = document.querySelector('#task').value;
+                    const li = document.createElement('li')
+                    li.innerHTML = task;
+                    document.querySelector('#tasks').append(li);
+                    document.querySelector('#task').value = '';
+                    document.querySelector('#submit').disabled = true;
+                    return false; // não envir o form
+                }
+            })
+        </script>
     </head>
     <body>
-        <h1>Tasks</h1>
+        <h1>Tasks</h1> 
         <ul id="tasks">
         </ul>
         <form>
-            <input type="text" id="task">
-            <input type="submit">
+            <input type="text" id="task" placeholder="New Task">
+            <input id="submit" type="submit">
         </form>
     </body>
 </html>
